@@ -1,0 +1,7 @@
+torch
+transformers
+sentencepiece
+spacy
+nltk
+streamlit
+language-tool-python
