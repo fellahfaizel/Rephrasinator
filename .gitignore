@@ -1,6 +1,7 @@
 venv/
-__pycache__/
+backend/api/__pycache__/
 .DS_Store
 *.pyc
 
 testphraser.py
+frontend/node_modules/

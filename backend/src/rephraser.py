@@ -8,6 +8,7 @@ from typing import List, Optional
 import json
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from src.grammar_corrector import correct_grammar
 
 MODEL_NAME = os.environ.get("REPHRASINATOR_MODEL", "google/flan-t5-base")
 
@@ -27,33 +28,31 @@ TEMPLATES = {
     "creative": "Rewrite the following sentence creatively, using expressive language: {}"
 }
 
-def rephrase_with_tone(
-    text: str,
-    tone: str = "formal",
-    temperature: float = 0.7,
-    num_beams: int = 5,
-    max_length: int = 128,
-    top_p: float = 0.9,
-) -> str:
-    """
-    Generates a rephrased version of the text based on tone.
-    Uses templates and shared generation utility.
-    """
+def rephrase_with_tone(text, tone="formal", temperature=0.7, num_beams=5, max_length=128):
+    # 1️⃣ Grammar correction first
+    corrected_text = correct_grammar(text)
+    
+    # 2️⃣ Apply tone-based rephrasing next
     if tone not in TEMPLATES:
         tone = "formal"
 
-    prompt = TEMPLATES[tone].format(text)
+    prompt = TEMPLATES[tone].format(corrected_text)
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True).to(DEVICE)
 
-    # Reuse the generic generate_text() utility
-    outputs = generate_text(
-        [prompt],
-        max_length=max_length,
-        num_beams=num_beams,
-        temperature=temperature,
-        do_sample=True,
-    )
+    with torch.no_grad():
+        outputs = model.generate(
+            **inputs,
+            max_length=max_length,
+            num_beams=num_beams,
+            temperature=temperature,
+            do_sample=True,
+            top_p=0.9,
+            early_stopping=True,
+            no_repeat_ngram_size=2
+        )
 
-    return outputs[0]
+    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return result
 
 
 def build_prompt(text: str, style: Optional[str] = None) -> str:
