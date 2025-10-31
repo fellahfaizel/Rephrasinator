@@ -100,6 +100,14 @@ Rephrasinator/
 4. Open browser and visit:
 👉 http://localhost:3000
 
+## 🖥️ Project Preview
+
+### 🔹 Web Interface
+![Rephrasinator UI](./images/Home_page.png)
+
+### 🔹 System Architecture
+![Form Page](./images/Form_page.png)
+
 ## **🧠 Model Details**
 
 - Model Used: T5-base
