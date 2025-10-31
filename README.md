@@ -37,7 +37,7 @@ It leverages **Transformers (T5-base)** for high-quality rephrasing and tone con
 ---
 
 ## 📁 Folder Structure
-
+```
 Rephrasinator/
 │
 ├── backend/
@@ -63,7 +63,7 @@ Rephrasinator/
 │
 ├── .gitignore
 └── README.md
-
+```
 
 ---
 
