@@ -1,0 +1,37 @@
+{
+  "formal": {
+    "description": "Use professional and grammatically precise language.",
+    "examples": [
+      {"input": "He dont has any idea about the topic.", "output": "He has no knowledge about the topic."},
+      {"input": "I wanna go there.", "output": "I would like to go there."}
+    ]
+  },
+  "informal": {
+    "description": "Use relaxed, conversational style.",
+    "examples": [
+      {"input": "He does not understand the topic.", "output": "He doesn’t really get the topic."},
+      {"input": "I cannot attend the meeting today.", "output": "Can’t make it to the meeting today."}
+    ]
+  },
+  "concise": {
+    "description": "Make the sentence shorter but keep the same meaning.",
+    "examples": [
+      {"input": "He does not have any idea about the topic.", "output": "He has no idea."},
+      {"input": "She is not coming to the party because she is tired.", "output": "She’s too tired to come."}
+    ]
+  },
+  "friendly": {
+    "description": "Make the tone warm and positive.",
+    "examples": [
+      {"input": "Please send the report soon.", "output": "Hey, could you send the report when you get a chance?"},
+      {"input": "I will call you later.", "output": "I’ll give you a quick call later!"}
+    ]
+  },
+  "creative": {
+    "description": "Rephrase in an imaginative or expressive way.",
+    "examples": [
+      {"input": "He was very tired.", "output": "He was running on fumes."},
+      {"input": "It’s raining heavily.", "output": "The sky’s crying its heart out."}
+    ]
+  }
+}

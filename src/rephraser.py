@@ -5,10 +5,11 @@ Designed to work with Flan-T5 / T5 / BART models from Hugging Face.
 
 import os
 from typing import List, Optional
+import json
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-MODEL_NAME = os.environ.get("REPHRASINATOR_MODEL", "google/flan-t5-small")
+MODEL_NAME = os.environ.get("REPHRASINATOR_MODEL", "google/flan-t5-base")
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -16,6 +17,44 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast = True)
 model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
 model = model.to(DEVICE)
 model.eval()
+
+# Load tone templates
+TEMPLATES = {
+    "formal": "Rephrase the following sentence in a formal and professional tone: {}",
+    "informal": "Rephrase the following sentence in a casual, conversational style: {}",
+    "concise": "Rephrase the following sentence to be short and concise while preserving meaning: {}",
+    "friendly": "Rephrase the following sentence in a warm and friendly tone: {}",
+    "creative": "Rewrite the following sentence creatively, using expressive language: {}"
+}
+
+def rephrase_with_tone(
+    text: str,
+    tone: str = "formal",
+    temperature: float = 0.7,
+    num_beams: int = 5,
+    max_length: int = 128,
+    top_p: float = 0.9,
+) -> str:
+    """
+    Generates a rephrased version of the text based on tone.
+    Uses templates and shared generation utility.
+    """
+    if tone not in TEMPLATES:
+        tone = "formal"
+
+    prompt = TEMPLATES[tone].format(text)
+
+    # Reuse the generic generate_text() utility
+    outputs = generate_text(
+        [prompt],
+        max_length=max_length,
+        num_beams=num_beams,
+        temperature=temperature,
+        do_sample=True,
+    )
+
+    return outputs[0]
+
 
 def build_prompt(text: str, style: Optional[str] = None) -> str:
     """
