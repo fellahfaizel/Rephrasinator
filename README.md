@@ -105,7 +105,7 @@ Rephrasinator/
 ### 🔹 Web Interface
 ![Rephrasinator UI](./images/Home_page.png)
 
-### 🔹 System Architecture
+### 🔹 Form Page
 ![Form Page](./images/Form_page.png)
 
 ## **🧠 Model Details**
