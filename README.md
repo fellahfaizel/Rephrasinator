@@ -93,28 +93,26 @@ Rephrasinator/
     ```bash
     npm install
 
-
 3. Run React app:
     ```bash
     npm start
 
-
 4. Open browser and visit:
 👉 http://localhost:3000
 
-### **🧠 Model Details**
+## **🧠 Model Details**
 
 - Model Used: T5-base
 - Purpose: Text rephrasing, tone adaptation, and grammar correction
 - Libraries: transformers, torch, nltk
 
-### **🧪 API Endpoints**
+## **🧪 API Endpoints**
 Endpoint	Method	Description
 /rephrase	POST	Returns rephrased text
 /grammar	POST	Returns grammatically corrected text
 /smart_rephrase	POST	Combines tone control + grammar correction
 
-### **💡 Future Enhancements**
+## **💡 Future Enhancements**
 
 - Add multilingual support (English → other languages)
 - Improve tone classification using BERT
